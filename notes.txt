@@ -1,0 +1,60 @@
+============================================= ** Make Dockerfile
+FROM python:3.7-alpine
+MAINTAINER Daniel Lamas
+
+ENV PYTHONUNBUFFERED 1
+
+COPY ./requirements.txt /requirements.txt
+RUN pip install -r /requirements.txt
+
+RUN mkdir /app 
+WORKDIR /app
+COPY ./app /app 
+
+RUN adduser -D user
+USER user 
+
+
+
+============================================= ** Make docker-compose.yml file
+version: "3"
+
+services:
+ app:
+  build:
+   context: .
+  ports:
+   - "8000:8000"
+  volumes:
+   - ./app:/app
+  command: >
+   sh -c "python manage.py runserver 0.0.0.0:8000"
+
+
+============================================= ** Build Dockerfile that's in our project
+docker build .
+
+
+
+** Build Docker yml file
+docker-compose build
+
+
+=== Add the app workding python file app/app
+docker-compose run app sh -c "django-admin.py startproject app ."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
