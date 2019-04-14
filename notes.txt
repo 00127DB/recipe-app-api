@@ -74,7 +74,7 @@ docker-compose run app sh -c "django-admin.py startproject app ."
 
 
 
-
+9db5e231a817f16efc3087ff476583a734e58513
 
 
 
